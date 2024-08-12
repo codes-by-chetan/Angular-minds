@@ -1,0 +1,26 @@
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading {
+    display: block;
+
+}
+
+.stadium-img {
+    display: block;
+}
+
+.newsletter-desc {
+    display: block;
+}
+
+.joining-form {
+    display: block;
+}
+
+.terms {
+    display: block;
+}
