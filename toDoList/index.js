@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 function displayTasks() {
-    let tid,tdesc,istaskcomplete,iscompletetext;
+    let tid,tdesc,istaskcomplete,iscompletetext,iscompleteclasstext,isDisabled;
     let todolist = document.createElement("li");
     taskDisplayConatiner.innerHTML = ""
     for (let i =0; i < tasks.length; i++){
@@ -20,17 +20,24 @@ function displayTasks() {
         tdesc = tasks[i].taskDesc;
         istaskcomplete = tasks[i].isCompleted;
         iscompletetext = istaskcomplete ? "checked":"";
-        todolist = `<div class="task ${iscompletetext}" id="task-${tid}">
-                        <p>${tdesc}</p>
-                        <div class="task-details">
+        iscompleteclasstext = istaskcomplete ? "completed":"incomplete";
+        isDisabled = istaskcomplete ? "text-muted list-group-item-dark":"";
+        todolist = `<tr class="task  ${isDisabled}" id="task-${tid}">
+                        
+                        <td class="task-details">
                             <input type="checkbox" class="checkbox-task  mark-${istaskcomplete}" name="mark-${tid}" id="mark-${tid}" onclick="marker(${i})" ${iscompletetext}>
-                            <label for="mark-${tid}">Mark task as complete</label><br>
-                        </div>
-                        <div>
-                            <button class="delete-this-btn" onclick="removeTask(${i})">Delete</button>
-                            <button class="edit-this-btn" onclick="editTask(${i}, this)">Edit</button>
-                        </div>
-                    </div>`;
+                            <label for="mark-${tid}">${iscompleteclasstext}</label><br>
+                        </td>
+                        <td>
+                            <p>${tdesc}</p>
+                        </td>
+                        <td class="delete-this-btn" onclick="removeTask(${i})">
+                            <i class="fa-solid fa-circle-minus" style="color: #ff7b00;"></i>
+                        </td>
+                        <td class="edit-this-btn" onclick="editTask(${i}, this)">
+                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                        </td>
+                    </tr>`;
         taskDisplayConatiner.innerHTML += todolist;
     }
 }
@@ -95,15 +102,16 @@ function editTask(i, btn) {
     istaskcomplete = tasks[i].isCompleted;
     iscompletetext = istaskcomplete ? "checked":"";
 
-    editEl = `<div class="edit-task-input-div">
+    editEl = `<tr class="edit-task-input-li">
                 <label class="edit-task-input-label" for="task-${tid}-input">Edit your task and hit Save</label>
                 <input type="text" class="edit-task-input" id="task-${tid}-input" name="task-${tid}-input" value="${tdesc}" />
                 <div>
                     <input type="checkbox" class="edit-task-checkbox mark-${istaskcomplete}" id="task-${tid}-checkbox" name="task-${tid}-checkbox" value="" ${iscompletetext}>
                     <label class="edit-task-checkbox-label" for="task-${tid}-checkbox">Mark task as complete</label>
                 </div>
-                </div>
-                <button class="edit-save-btn" onclick="saveEditedTask(${i}, this)">Save</button>`;
+                 <button class="edit-save-btn" onclick="saveEditedTask(${i}, this)">Save</button>
+                </tr>
+               `;
             
         
         
